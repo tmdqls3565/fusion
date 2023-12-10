@@ -1,0 +1,162 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... (이전의 head 내용 유지) ... -->
+</head>
+<body>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .chat-container {
+            width: 400px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .chat-body {
+            padding: 15px;
+            height: 300px;
+            overflow-y: auto;
+        }
+
+        .user-message, .bot-message {
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            text-align: right;
+        }
+
+        .bot-message {
+            text-align: left;
+        }
+
+        .message-text {
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            max-width: 70%;
+        }
+
+        .user-message .message-text {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .bot-message .message-text {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .chat-input {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #eee;
+        }
+
+        .user-input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .send-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+    </style>
+    <div class="chat-container">
+        <div class="chat-header">Medicine Bot</div>
+        <div class="chat-body" id="chat-body">
+            <!-- Chat messages will be displayed here -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" class="user-input" placeholder="증상을 입력해주세요." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()" class="send-button">질문</button>
+        </div>
+    </div>
+    <script>
+        const chatBody = document.getElementById('chat-body');
+        const userInputField = document.getElementById('user-input');
+
+        function sendMessage() {
+            var userMessage = userInputField.value;
+            if (userMessage.trim() === '') {
+                return;  // 입력이 비어 있으면 아무것도 하지 않음
+            }
+
+            appendMessage('user', userMessage);
+
+            // You can send the user message to the server and get the bot's response here.
+            // For simplicity, we'll just use a placeholder response for now.
+            var botResponse = getAnswer(userMessage);
+
+            appendMessage('bot', botResponse);
+            userInputField.value = '';
+        }
+
+        function appendMessage(sender, message) {
+            var messageDiv = document.createElement('div');
+            messageDiv.className = sender + '-message';
+
+            var messageText = document.createElement('div');
+            messageText.className = 'message-text';
+            messageText.textContent = message;
+
+            messageDiv.appendChild(messageText);
+            chatBody.appendChild(messageDiv);
+
+            // Scroll to the bottom of the chat body to show the latest message
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function getAnswer(question) {
+            // 질문에 대한 답변을 정의합니다.
+            if (question.includes('소화')) {
+                return '열이 나시나요?';
+            } else if (question.includes('날씨')) {
+                return '오늘은 맑습니다.';
+            } else if (question.includes('음식')) {
+                return '피자가 제일 좋아요!';
+            } else {
+                return '죄송해요, 그 질문에 대한 답을 모르겠어요.';
+            }
+        }
+
+        function handleKeyPress(event) {
+            // 엔터 키를 눌렀을 때 sendMessage 함수 호출
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>
