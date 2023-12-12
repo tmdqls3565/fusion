@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <!-- ... (이전의 head 내용 유지) ... -->
 </head>
@@ -17,7 +17,7 @@
         }
 
         .chat-container {
-            width: 400px;
+            width: 700px;
             border: 1px solid #ccc;
             border-radius: 8px;
             overflow: hidden;
@@ -62,8 +62,10 @@
         }
 
         .bot-message .message-text {
-            background-color: lightgray; /* 변경된 부분: 사용자와 동일한 배경색 적용 */
+            background-color: lightgray;
             color: black;
+            overflow: hidden;
+            white-space: nowrap;
         }
 
         .chat-input {
@@ -90,7 +92,6 @@
             border-radius: 4px;
             cursor: pointer;
         }
-        
     </style>
     <div class="chat-container">
         <div class="chat-header">Medicine Bot</div>
@@ -128,10 +129,21 @@
 
             var messageText = document.createElement('div');
             messageText.className = 'message-text';
-            messageText.textContent = message;
-
             messageDiv.appendChild(messageText);
             chatBody.appendChild(messageDiv);
+
+            var textArray = message.split('');
+            var index = 0;
+
+            function displayText() {
+                if (index < textArray.length) {
+                    messageText.innerHTML += textArray[index];
+                    index++;
+                    setTimeout(displayText, 50); // 각 글자 간의 간격(ms)을 조절하려면 여기 값을 조정하세요.
+                }
+            }
+
+            displayText();
 
             // Scroll to the bottom of the chat body to show the latest message
             chatBody.scrollTop = chatBody.scrollHeight;
