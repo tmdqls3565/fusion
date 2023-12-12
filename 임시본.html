@@ -21,6 +21,7 @@
             border: 1px solid #ccc;
             border-radius: 8px;
             overflow: hidden;
+
         }
 
         .chat-header {
@@ -119,6 +120,7 @@
             // For simplicity, we'll just use a placeholder response for now.
             var botResponse = getAnswer(userMessage);
 
+            // Append the entire bot response at once
             appendMessage('bot', botResponse);
             userInputField.value = '';
         }
@@ -132,18 +134,24 @@
             messageDiv.appendChild(messageText);
             chatBody.appendChild(messageDiv);
 
-            var textArray = message.split('');
-            var index = 0;
+            // Display the entire message at once for user
+            if (sender === 'user') {
+                messageText.innerHTML = message;
+            } else {
+                // Display one character at a time for bot
+                var textArray = message.split('');
+                var index = 0;
 
-            function displayText() {
-                if (index < textArray.length) {
-                    messageText.innerHTML += textArray[index];
-                    index++;
-                    setTimeout(displayText, 50); // 각 글자 간의 간격(ms)을 조절하려면 여기 값을 조정하세요.
+                function displayText() {
+                    if (index < textArray.length) {
+                        messageText.innerHTML += textArray[index];
+                        index++;
+                        setTimeout(displayText, 50); // 각 글자 간의 간격(ms)을 조절하려면 여기 값을 조정하세요.
+                    }
                 }
-            }
 
-            displayText();
+                displayText();
+            }
 
             // Scroll to the bottom of the chat body to show the latest message
             chatBody.scrollTop = chatBody.scrollHeight;
