@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>온라인 모의 약국 - 융합 수업</title>
+    <!-- ... (이전의 head 내용 유지) ... -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #4CAF50;
+        }
+
+        nav {
+            height: 35px;
+        }
+
+        .chat-container {
+            width: 800px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 600px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .chat-body {
+            padding: 15px;
+            height: 470px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+
+        .user-message,
+        .bot-message {
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            text-align: right;
+        }
+
+        .bot-message {
+            text-align: left;
+        }
+
+        .message-text {
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            max-width: 70%;
+        }
+
+        .user-message .message-text {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .bot-message .message-text {
+            background-color: lightgray;
+            color: black;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+
+        .chat-input {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            padding: 10px;
+            background-color: #eee;
+        }
+
+        .user-input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .send-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        address {
+            font-style: normal;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Online Pharmacy</h1>
+        <nav>
+            <a href="index.html">Home</a>
+        </nav>
+    </header>
+
+    <div class="chat-container">
+        <div class="chat-header">Medicine Bot</div>
+        <div class="chat-body" id="chat-body"></div>
+        <div class="chat-input">
+            <input type="text" id="user-input" class="user-input" placeholder="증상을 입력해주세요." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()" class="send-button">질문</button>
+        </div>
+    </div>
+
+    <p></p>
+    <hr>
+    <footer>
+        <address>
+            약 처방 문의 : aaaa1111@example.com<br>
+            전화번호 : +82 10-1234-5678<br>
+            주소 : 경상남도 사천시 사천읍 동문로 95
+        </address>
+    </footer>
+    <script>
+        // 자바스크립트 코드는 여기에 추가
+    </script>
+</body>
+
+</html>

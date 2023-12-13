@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <title>온라인 모의 약국 - 융합 수업</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>
+                <font color="green">Online Pharmacy</font></br>
+                <font size="4" color="green">온라인 모의 약국</font>
+                <div style="text-align: right;">
+                    <a href="index.html"><font color="green">Home</font></a>
+                </div>
+            </h1>
+        </header>
+        <article>
+          <div style="text-align: center;">
+            <form action="index.html">
+              <h1>로그인</h1>
+              <div>e-mail :<input type = "email" id="sifnInEmail"/> </div>
+              <div>password :<input type = "password" id="signInPassword"/> </div>
+              <Button type="submit" id="signInButton"> 로그인 하기</Button>
+              <Button> 회원가입 하러가기</Button>
+            </form>
+          </div>
+            <script type="module"> 
+                // Import the functions you need from the SDKs you need
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+                import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+                // TODO: Add SDKs for Firebase products that you want to use
+                // https://firebase.google.com/docs/web/setup#available-libraries
+              
+                // Your web app's Firebase configuration
+                // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+                const firebaseConfig = {
+                  apiKey: "AIzaSyAKWLve8Vh8Sjwg2DSLVe9jzdzxgVcLClY",
+                  authDomain: "login-f2ebf.firebaseapp.com",
+                  projectId: "login-f2ebf",
+                  storageBucket: "login-f2ebf.appspot.com",
+                  messagingSenderId: "27300975775",
+                  appId: "1:27300975775:web:af22c400ca8f1d6da27eaa",
+                  measurementId: "G-0SNCDZC81E"
+                };
+              
+                // Initialize Firebase
+                const app = initializeApp(firebaseConfig);
+                const analytics = getAnalytics(app);
+                
+                import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+                const auth = getAuth(); 
+                document.getElementById ('signUpButton') .addEventListener('click', (event) => {
+                   event.preventDefault()
+                   const signUpemail = document.getElementById('signUpEmail').value
+                   const signUppassword = document.getElementById('signUpPassword').value
+                   
+                   createUserWithEmailAndPassword(auth, email, password) 
+                   .then((userCredential) => {
+                    console.log(serCredentia)
+                   // Signed in 
+                    const user = userCredential.user;
+                   // ...
+                })
+                  .catch((error) => {
+                    console.log('error')
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  // ..
+                }); 
+           } )
+           document.getElementById('signInButton').addEventListener('click', (event) => {
+              evnet.preventDefault()
+              const signInemail = document.getElementById('signInEmail').value
+              const signInpassword = document.getElementById('signInPassword').value
+              signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            // Signed in 
+            console.log(userCredential)
+            const user = userCredential.user;
+            // ...
+          })
+          .catch((error) => {
+            console.log("로그인 실패")
+            const errorCode = error.code;
+            const errorMessage = error.message;
+          });
+           })
+            
+               console.log("hello world")
+                console.log(app)
+              </script>
+        </article>
+        <p></p>
+        <hr>
+        <footer>
+            <address>
+                약 처방 문의 : aaaa1111@example.com</br>
+                전화번호 : +82 10-1234-5678</br>
+                주소 : 경상남도 사천시 사천읍 동문로 95
+            </address>
+        </footer>
+    </body>
+</html>

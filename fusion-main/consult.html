@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>온라인 모의 약국 - 융합 수업</title>
+    <!-- ... (이전의 head 내용 유지) ... -->
+</head>
+<body>
+    <header>
+        <div style="text-align: center;">
+            <h1>
+                <font color="green" href="index.html">Online Pharmacy</font></br>
+                <font size="4" color="green">온라인 모의 약국</font>
+                <nav style="height: 35px;">
+                    <a href="index.html"><font color="green">Home</font></a>
+                </nav>
+            </h1>
+        </div>
+        </br>
+        <style>
+            nav {
+                height: 35px;
+            }
+
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: white;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+            }
+
+            .chat-container {
+                width: 800px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                overflow: hidden;
+                height: 600px;
+            }
+
+            .chat-header {
+                background-color: #4CAF50;
+                color: white;
+                padding: 15px;
+                text-align: center;
+                font-size: 18px;
+            }
+
+            .chat-body {
+                padding: 15px;
+                height: 470px;
+                overflow-y: auto;
+            }
+
+            .user-message, .bot-message {
+                margin-bottom: 10px;
+            }
+
+            .user-message {
+                text-align: right;
+            }
+
+            .bot-message {
+                text-align: left;
+            }
+
+            .message-text {
+                padding: 10px;
+                border-radius: 5px;
+                display: inline-block;
+                max-width: 70%;
+            }
+
+            .user-message .message-text {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .bot-message .message-text {
+                background-color: lightgray;
+                color: black;
+                overflow: hidden;
+                word-wrap: break-word; 
+            }
+
+            .chat-input {
+                display: flex;
+                justify-content: space-between;
+                align-items: end;
+                padding: 10px;
+                background-color: #eee;
+            }
+
+            .user-input {
+                flex: 1;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                margin-right: 10px;
+            }
+
+            .send-button {
+                background-color: #4CAF50;
+                color: white;
+                padding: 8px 12px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+        </style>
+        <div class="chat-container">
+            <div class="chat-header">Medicine Bot</div>
+            <div class="chat-body" id="chat-body">
+                
+            </div>
+            <div class="chat-input">
+                <input type="text" id="user-input" class="user-input" placeholder="증상을 입력해주세요." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()" class="send-button">질문</button>
+            </div>
+        </div>
+        <script>
+            const chatBody = document.getElementById('chat-body');
+            const userInputField = document.getElementById('user-input');
+
+            function sendMessage() {
+                var userMessage = userInputField.value;
+                if (userMessage.trim() === '') {
+                    return;
+               userInputField.value = '';
+            }
+
+            function appendMessage(sender, message) {
+                var messageDiv = document.createElement('div');
+                messageDiv.className = sender + '-message';
+
+                var messageText = document.createElement('div');
+                messageText.className = 'message-text';
+                messageDiv.appendChild(messageText);
+                chatBody.appendChild(messageDiv);
+
+                if (sender === 'user') {
+                    messageText.innerHTML = message;
+                } else {
+                    var textArray = message.split('');
+                    var index = 0;
+
+                    function displayText() {
+                        if (index < textArray.length) {
+                            messageText.innerHTML += textArray[index];
+                            index++;
+                            setTimeout(displayText, 50);
+                        }
+                    }
+
+                    displayText();
+                }
+
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }           }
+
+                appendMessage('user', userMessage);
+
+                var botResponse = getAnswer(userMessage);
+
+                appendMessage('bot', botResponse);
+      
+
+            function getAnswer(question) {
+                if (question.includes('안녕')) {
+                    return '안녕하세요. 무엇을 도와드릴까요'; 
+                
+                } else if (question.includes('기침') && question.includes('코') && question.includes('열')) {
+                    return '종합감기로 예상 되니 종합감기약인 판피린에프액, 하벤코프시럽중 하나를 복용해보시는게 어떨까요.';
+                
+                } else if (question.includes('소화')) {
+                    return '소화제인 멕소롱정,디세텔정을 복용해보시는게 어떨까요.';
+
+                } else if (question.includes('열')) {
+                    return '해열을 도와주는 타이레놀, 아스피린, 게보린를 복용하시는 것을 추천드려요';
+                
+                } else if (question.includes('알레르기')) {
+
+                    return '먹는 약을 추천해 드릴까요 바르는 약을 추천해 드릴까요? (먹는 약/바르는 약)';
+                } else if (question.toLowerCase() === '먹는 약') {
+                    return '먹는 약으로는 오로친, 지르텍이 있습니다.';
+                } else if (question.toLowerCase() === '바르는 약') {
+                    return '바르는 약으로는 칼라민로숌이 있습니다.';
+
+                } else if (question.includes('극심한')) {
+
+                    return '너무 아프시다면 마약성 진통제를 추천해드릴까요?  (예/아니요)' ;
+                } else if (question.toLowerCase() === '예') {
+                    return '마약성 진통제인 펜타닐을 복용해보세요. 하지만 펜타닐은 중독성이 강하기 떄문에 처방전 없이는 처방이 불가능한 약품입니다.';
+                } else if (question.toLowerCase() === '아니요') {
+                    return '그럼 비마약성 진통제인 타이레놀, 아스피린, 게보린을 복용해보세요.';
+
+                } else if (question.includes('철')) {
+                    return '철분 약인 훼럼포라를 추천드립니다.';
+
+                } else if (question.includes('상처')) {
+                    return '상처가 나신 부위에 마데카솔을 뿌리시면 좋을것 같아요.';
+                
+
+                } else if (question.includes('기침')) {
+                    return '기침이 나오신다면 기침약인 코푸정, 코데날, 레보투스 중 하나를 복용하시는 것을 추천드려요. 하지만 이 약은 처방전이 필요한 약입니다.';
+
+                } else {
+                    return '죄송해요, 그 질문에 대한 답을 모르겠어요.';
+                }
+            }
+
+            function handleKeyPress(event) {
+                if (event.key === 'Enter') {
+                    sendMessage();
+                }
+            }
+        </script>
+        <p></p>
+        <hr>
+        <footer>
+            <address>
+                약 처방 문의 : aaaa1111@example.com</br>
+                전화번호 : +82 10-1234-5678</br>
+                주소 : 경상남도 사천시 사천읍 동문로 95
+            </address>
+        </footer>
+    </header>
+</body>
+</html>
